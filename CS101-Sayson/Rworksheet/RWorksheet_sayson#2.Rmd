@@ -1,0 +1,52 @@
+---
+title: 'Worksheet #2'
+author: "Adrian T. Sayson"
+date: "2025-09-29"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#1.
+y <- -5:5
+y
+#[1] -5 -4 -3 -2 -1  0  1  2  3  4  5
+# The output for this code is all numbers from -5 up to 5 in sequential order, shown if printed.
+
+#2.
+x <- 1:7
+x
+#[1] 1 2 3 4 5 6 7
+
+#3.
+age <- c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27,
+22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 43, 53, 41, 51, 35,
+24,33, 41, 53, 40, 18, 44, 38, 41, 48, 27, 39, 19, 30, 61, 54, 58, 26,
+18)
+age [3]
+#[1] 22
+age [c(2,4)]
+#[1] 28 36
+age [-1]
+#[1] 28 22 36 27 18 52 39 42 29 35 31 27 22 37 34 19 20 57 49 50 37 46 25 17 37 43 53 41 51 35 24 33 41 53 40 18
+#[37] 44 38 41 48 27 39 19 30 61 54 58 26 18
+
+#4.
+z <- c("first"=3, "second"=0, "third"=9)
+names(z)
+#[1] "first"  "second" "third" 
+z[c("first", "third")]
+#first third 
+#    3     9 
+# names() in R is a function where only the labels are extracted and not the values of those labels
+
+#5.
+a <- -3:2
+a[2] <- 0
+a
+#[1] -3  0 -1  0  1  2
+# The second 
+
+
+
