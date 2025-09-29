@@ -46,7 +46,41 @@ a <- -3:2
 a[2] <- 0
 a
 #[1] -3  0 -1  0  1  2
-# The second 
+# The second element of the sequence -3 to 2 is replaced by 0
 
+#6.
+Month <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun")
+Price_per_liter <- c(52.50, 57.25, 60.00, 65.00, 74.25, 54.00)
+Purchase_quantity <- c(25, 30, 40, 50, 10, 45)
+dataframe <- data.frame (Month, Price_per_liter, Purchase_quantity)
+dataframe
+#  Month Price_per_liter Purchase_quantity
+#1   Jan           52.50                25
+#2   Feb           57.25                30
+#3   Mar           60.00                40
+#4   Apr           65.00                50
+#5   May           74.25                10
+#6   Jun           54.00                45
+Fuel <- weighted.mean(x = Price_per_liter, w = Purchase_quantity)
+Fuel
+#[1] 59.2625  
 
+#7.
+rivers
+elements <- c(length(rivers), sum(rivers), mean(rivers), median(rivers), var(rivers),
+sd(rivers), min(rivers), max(rivers))
+elements
+#[1]    141.0000  83357.0000    591.1844    425.0000 243908.4086    493.8708    135.0000   3710.0000
 
+#8.
+Power <- 1:25
+Celebrity <- c("Tom Cruise", "Rolling Stones", "Oprah Winfrey", "U2", "Tiger Woods", "Steven Spielberg", "Howard Stern", "50 Cent", "Cast of the Sopranos", "Dan Brown", "Bruce Springsteen", "Donald Trump", "Muhammad Ali", "Paul McCartney", "George Lucas", "Elton John", "David Letterman", "Phil Mickelson", "J.K Rowling", "Bradd Pitt", "Peter Jackson", "Dr. Phil Mcgraw", "Jay Lenon", "Celine Dion", "Kobe Bryant")
+Pay <- c(67, 90, 225, 110, 90, 332, 302, 41, 52, 88, 55, 44, 55, 40, 233, 34, 40, 47, 75, 25, 39, 45, 32, 40, 31)
+jk <- which(Celebrity == "J.K Rowling")
+Power[jk] <- 15
+Pay[jk] <- 90
+celebrity_df <- data.frame(Power, Celebrity, Pay)
+celebrity_df[jk, ]
+#Power   Celebrity Pay
+#19    15 J.K Rowling  90
+# The data present is about the influence and rankings of celebrities
