@@ -70,10 +70,81 @@ print(str(df))
 ```
 ```{r}
 #a
-#The dataframe structure shows the variable names but no rows as seen in the second line.
+#the results confirm that the program successfully created a well-structured, zero-row data frame with five columns, each correctly defined to hold a specific R data type. This empty data frame is now ready to have new rows of data appended to it.
+```
+
+```{r}
+#3.
+respondents_data <- data.frame(
+  Respondents = 1:10,
+  Sex = c("Male", "Female", "Female", "Male", "Male", "Female", "Female", "Male", "Female", "Male"),
+  Fathers_Occupation = c(1, 2, 3, 3, 1, 2, 2, 3, 1, 3),
+  Persons_at_Home = c(5, 7, 3, 8, 6, 4, 2, 2, 11, 6),
+  Siblings_at_School = c(2, 3, 0, 5, 2, 1, 1, 2, 6, 2),
+  Types_of_Houses = c("Wood", "Congrete", "Congrete", "Wood", "Semi-congrete", "Semi-congrete", "Wood", "Semi-congrete", "Semi-congrete", "Congrete"))
+write.csv(respondents_data, "HouseholdData.csv", row.names = FALSE)
+respondents_data
+```
+```{r}
+#a
+my_data <- read.csv("HouseholdData.csv")
+my_data
 ```
 ```{r}
 #b
-Respondents <- 
-
+my_data1 <- read.csv("HouseholdData.csv")
+my_data1$Sex <- factor(my_data$Sex, levels = c("Male", "Female"))
+my_data1$Sex <- as.integer(my_data1$Sex)
+print(my_data1$Sex)
 ```
+```{r}
+#c
+my_data2 <- read.csv("HouseholdData.csv")
+my_data2$Types_of_Houses <- factor(my_data2$Types_of_Houses, levels = c("Wood", "Congrete", "Semi-congrete"))
+my_data2$Types_of_Houses <- as.integer(my_data2$Types_of_Houses)
+print(my_data2$Types_of_Houses)
+```
+```{r}
+#d
+my_data3 <- read.csv("HouseholdData.csv")
+my_data3$Fathers_Occupation <- factor(my_data3$Fathers_Occupation,levels = c(1, 2, 3), labels = c("Farmer", "Driver", "Others"))
+my_data3$Fathers_Occupation <- as.integer(my_data3$Fathers_Occupation)
+print(my_data3$Fathers_Occupation)
+```
+```{r}
+#e
+data4 <- read.csv("HouseholdData.csv")
+female_driver <- subset(data4, Sex == "Female" & Fathers_Occupation == 2)
+female_driver
+```
+```{r}
+#f
+data5 <- read.csv("HouseholdData.csv")
+greater_than_5_siblings <- subset(data5, Siblings_at_School >= 5)
+greater_than_5_siblings
+```
+
+```{r}
+#4.
+Date <- c(
+  "July 14", "July 14", "July 14",
+  "July 15", "July 15", "July 15",
+  "July 17", "July 17", "July 17",
+  "July 18", "July 18", "July 18",
+  "July 20", "July 20", "July 20",
+  "July 21", "July 21", "July 21"
+)
+Sentiment <- rep(c("Negative", "Neutral", "Positive"), times = 6)
+Count <- c(
+  2400, 1600, 1700,
+  3800, 2900, 3200,
+  3300, 1700, 2500,
+  3300, 2000, 2600,
+  2200, 1400, 1600,
+  3700, 2800, 3400
+)
+sentiment_data <- data.frame(Date, Sentiment, Count)
+sentiment_data
+```
+
+
