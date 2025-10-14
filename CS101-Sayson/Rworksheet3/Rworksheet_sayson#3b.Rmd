@@ -29,7 +29,7 @@ str(data)
 ```
 ```{r}
 #c
-mean(siblings_at_school)
+mean(data$siblings_at_school)
 #No, the mean is 3 rounded up from 2.95.
 ```
 ```{r}
