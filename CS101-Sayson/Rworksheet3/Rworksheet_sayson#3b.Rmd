@@ -147,6 +147,7 @@ Count <- c(
 )
 sentiment_data <- data.frame(Date, Sentiment, Count)
 sentiment_data
+#Throughout the data, negative tweets outnumber the neutral and positive tweets in each and every day. Negative tweets spiked up during July 15 and July 21. Something negative may have happened during those days.
 ```
 
 
