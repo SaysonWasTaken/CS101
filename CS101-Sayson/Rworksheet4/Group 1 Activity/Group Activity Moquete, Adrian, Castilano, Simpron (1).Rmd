@@ -1,0 +1,169 @@
+---
+title: "Group Activity"
+author: "Renz Moquete, Adrian Sayson, Rashir John Castillano, Michael Simpron"
+date: "2025-12-01"
+output:
+  pdf_document:
+    latex_engine: xelatex
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+### Loading the library
+```{r}
+library(rvest)
+library(dplyr)
+library(stringr)   
+library(lubridate) ## For date formats
+library(ggplot2)   
+```
+
+### 1. Creating an object
+```{r}
+titles <- character(0)
+authors <- character(0)
+submission_dates <- character(0)
+originally_announced <- character(0)
+doi <- character(0)
+
+head(authors)
+head(titles)
+head(submission_dates)
+head(originally_announced)
+head(doi)
+```
+
+
+### 2. Importing the url and created a structure
+```{r}
+# Base URL for Nuclear Theory
+base_url <- "https://arxiv.org/search/?query=Nuclear+Theory&searchtype=all&source=header&start="
+
+all_papers <- list()
+
+# Loop 4 times to get 200 papers (0, 50, 100, 150)
+starts <- seq(from = 0, to = 150, by = 50)
+
+for (i in starts) {
+  
+  # Construct URL
+  url <- paste0(base_url, i)
+  print(paste("Scraping:", url)) # Print progress so you know it's working
+  
+  # STANDARD SCRAPING (Replaces polite::scrape)
+  # We use tryCatch to skip a page if an error occurs, preventing a total crash
+  tryCatch({
+    page <- read_html(url)
+    
+    # Extract containers
+    papers_html <- page %>% html_nodes("li.arxiv-result")
+    
+    # Extract Data Elements
+    titles <- papers_html %>% 
+      html_node("p.title.is-5.mathjax") %>% 
+      html_text(trim = TRUE)
+    
+    authors <- papers_html %>% 
+      html_node("p.authors") %>% 
+      html_text(trim = TRUE) %>% 
+      str_remove("Authors:\n")
+    
+    abstracts <- papers_html %>% 
+      html_node("span.abstract-full") %>% 
+      html_text(trim = TRUE) %>% 
+      str_remove("△ Less")
+    
+    meta_raw <- papers_html %>% 
+      html_node("p.is-size-7") %>% 
+      html_text(trim = TRUE)
+    
+    # Store in temporary dataframe
+    temp_df <- data.frame(
+      title = titles,
+      author = authors,
+      abstract = abstracts,
+      meta_raw = meta_raw,
+      stringsAsFactors = FALSE
+    )
+    
+    all_papers[[length(all_papers) + 1]] <- temp_df
+    
+  }, error = function(e) {
+    print(paste("Error on page starting at", i))
+  })
+  
+  # IMPORTANT: Wait 3 seconds between pages to avoid being banned by arXiv
+  Sys.sleep(3) 
+}
+
+# Combine all lists into one dataframe
+df_papers <- bind_rows(all_papers)
+
+# Check count
+print(paste("Total papers extracted:", nrow(df_papers)))
+
+```
+
+
+
+### 3. Cleaning the data
+```{r}
+df_clean <- df_papers %>% 
+  mutate(
+    # 1. Extract Submission Date
+    submission_date_text = str_extract(meta_raw, "Submitted.*?(=?;)"),
+    submission_date_text = str_remove_all(submission_date_text, "Submitted |;"),
+    submission_date = dmy(submission_date_text),
+    
+    # 2. Extract DOI
+    doi = str_extract(meta_raw, "doi:.*"),
+    doi = str_remove(doi, "doi:"),
+    
+    # 3. Extract Announced Date (Backup if submission is missing)
+    announced_date_text = str_extract(meta_raw, "originally announced [A-Za-z]+ [0-9]{4}"),
+    announced_date_text = str_remove(announced_date_text, "originally announced "),
+    originally_announced = my(announced_date_text)
+  )
+
+# Remove rows where date might have failed (optional)
+df_clean <- df_clean %>% filter(!is.na(submission_date))
+
+head(df_clean %>% select(title, submission_date, doi))
+
+```
+
+### Arangging The dates
+
+```{r}
+df_sorted <- df_clean %>% 
+  arrange(submission_date)
+
+```
+
+### 5. Turning into a plot time series
+```{r}
+# Count papers per month
+papers_per_month <- df_sorted %>%
+  mutate(month_year = floor_date(submission_date, "month")) %>%
+  group_by(month_year) %>%
+  summarise(count = n())
+
+# Plot
+ggplot(papers_per_month, aes(x = month_year, y = count)) +
+  geom_line(color = "darkblue", size = 1) +
+  geom_point(color = "red") +
+  labs(title = "Time Series: Nuclear Theory Papers (arXiv)",
+       subtitle = "Frequency of papers submitted per month",
+       x = "Date",
+       y = "Number of Papers") +
+  theme_minimal()
+```
+
+
+
+
+
+

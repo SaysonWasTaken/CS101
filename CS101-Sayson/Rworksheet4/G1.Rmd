@@ -1,0 +1,63 @@
+---
+title: "Group Activity"
+author: "Adrian T. Sayson"
+date: "2025-12-01"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(rvest)
+library(httr)
+
+url <- "https://arxiv.org/abs/2401.00001"
+
+# Use a user-agent to avoid blocking
+response <- GET(url, user_agent("Mozilla/5.0"))
+
+page <- read_html(response)
+
+title <- page %>% 
+  html_node("title is-5 mathjax") %>% 
+  html_text(trim = TRUE) %>% 
+  sub("Title:\\s*", "", .)
+
+authors <- page %>% 
+  html_nodes("has-text-black-bis has-text-weight-semibold") %>% 
+  html_text()
+
+abstract <- page %>% 
+  html_node("blockquote.abstract") %>% 
+  html_text(trim = TRUE) %>% 
+  sub("Abstract:\\s*", "", .)
+
+categories <- page %>% 
+  html_node("span.primary-subject") %>% 
+  html_text()
+
+pdf_url <- page %>% 
+  html_node("div.full-text a[href$='.pdf']") %>% 
+  html_attr("href") %>% 
+  paste0("https://arxiv.org", .)
+
+list(
+  title = title,
+  authors = authors,
+  abstract = abstract,
+  categories = categories,
+  pdf_url = pdf_url
+)
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```

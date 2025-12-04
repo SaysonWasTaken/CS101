@@ -1,0 +1,95 @@
+---
+title: "RWorksheet_sayson#4b.Rmd"
+author: "Adrian T. Sayson"
+date: "2025-11-24"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+#1.
+vectorA <- c(1, 2, 3, 4, 5)
+matrix5x5 <- matrix(0, nrow = 5, ncol = 5)
+
+for(i in 1:5) {      
+  for(j in 1:5) {      
+    matrix5x5[i, j] <- abs(vectorA[j] - i)
+  }
+}
+print(matrix5x5)
+```
+```{r}
+#2.
+for(i in 1:5){
+for(j in 1:i){
+cat("*")
+}
+cat("\n")
+}
+```
+```{r}
+#3.
+first_num <- as.numeric(readline(prompt = "Enter the first number of the Fibonacci sequence: "))
+5
+a <- first_num
+b <- 1
+cat("Fibonacci sequence starting from", first_num, "up to 500:\n")
+
+repeat {
+  cat(a, " ")
+  next_num <- a + b
+  a <- b
+  b <- next_num
+  
+  if(a > 500) {
+    break
+  }
+}
+cat("\n")
+```
+```{r}
+n <- 1
+a <- 0
+b <- 1
+cat("Fibonacci numbers starting from", n, "up to 500:\n")
+repeat {
+fib <- a + b
+if (fib > 500) break
+if (fib >= n) cat(fib, " ")
+a <- b
+b <- fib
+}
+cat("\n")
+```
+
+```{r}
+#4.
+fig1 <- matrix(c(0,1,2,3,4,
+1,0,1,2,3,
+2,1,0,1,2,
+3,2,1,0,1,
+4,3,2,1,0), nrow=5, byrow=TRUE)
+write.csv(fig1, "figure1.csv", row.names=FALSE)
+figure1 <- read.csv("figure1.csv", header=FALSE)
+print(figure1)
+
+shoe_size <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5,
+13.0, 11.5, 8.5, 5.0, 10.0, 6.5, 7.5, 8.5, 10.5, 10.5, 11.0, 9.0, 13.0)
+height <- c(66.0, 68.0, 64.5, 65.0, 70.0, 64.0, 70.0, 71.0, 72.0, 64.0, 74.5, 67.0, 71.0, 71.0,
+77.0, 72.0, 59.0, 62.0, 72.0, 66.0, 64.0, 67.0, 73.0, 72.0, 69.0, 69.0, 70.0)
+gender <- c("F", "F", "F", "F", "M", "F", "F", "F", "M", "F", "M", "F", "M", "M",
+"M", "M", "F", "F", "M", "F", "F", "M", "M", "M", "M", "M", "M")
+
+df <- data.frame(Shoe_size = shoe_size, Height = height, Gender = gender)
+write.csv(df, "figure3.csv", row.names = FALSE)
+
+gender_count <- table(df$Gender)
+barplot(gender_count, col=c("pink","blue"), main="Number of Males and Females in Household Data", xlab="Gender", ylab="Number of Individuals")
+legend("topright", legend=names(gender_count), fill=c("pink","blue"))
+
+```
+```{r}
+
+```
+

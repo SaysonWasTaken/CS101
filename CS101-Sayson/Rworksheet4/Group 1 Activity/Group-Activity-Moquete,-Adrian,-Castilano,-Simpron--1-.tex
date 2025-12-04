@@ -1,0 +1,307 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Group Activity},
+  pdfauthor={Renz Moquete, Adrian Sayson, Rashir John Castillano, Michael Simpron},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Group Activity}
+\author{Renz Moquete, Adrian Sayson, Rashir John Castillano, Michael
+Simpron}
+\date{2025-12-01}
+
+\begin{document}
+\maketitle
+
+\subsubsection{Loading the library}\label{loading-the-library}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rvest)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(stringr)   }
+\FunctionTok{library}\NormalTok{(lubridate) }\DocumentationTok{\#\# For date formats}
+\FunctionTok{library}\NormalTok{(ggplot2)   }
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{1. Creating an object}\label{creating-an-object}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{titles }\OtherTok{\textless{}{-}} \FunctionTok{character}\NormalTok{(}\DecValTok{0}\NormalTok{)}
+\NormalTok{authors }\OtherTok{\textless{}{-}} \FunctionTok{character}\NormalTok{(}\DecValTok{0}\NormalTok{)}
+\NormalTok{submission\_dates }\OtherTok{\textless{}{-}} \FunctionTok{character}\NormalTok{(}\DecValTok{0}\NormalTok{)}
+\NormalTok{originally\_announced }\OtherTok{\textless{}{-}} \FunctionTok{character}\NormalTok{(}\DecValTok{0}\NormalTok{)}
+\NormalTok{doi }\OtherTok{\textless{}{-}} \FunctionTok{character}\NormalTok{(}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{2. Importing the url and created a
+structure}\label{importing-the-url-and-created-a-structure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Base URL for Nuclear Theory}
+\NormalTok{base\_url }\OtherTok{\textless{}{-}} \StringTok{"https://arxiv.org/search/?query=Nuclear+Theory\&searchtype=all\&source=header\&start="}
+
+\NormalTok{all\_papers }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+
+\CommentTok{\# Loop 4 times to get 200 papers (0, 50, 100, 150)}
+\NormalTok{starts }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{0}\NormalTok{, }\AttributeTok{to =} \DecValTok{150}\NormalTok{, }\AttributeTok{by =} \DecValTok{50}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ starts) \{}
+  
+  \CommentTok{\# Construct URL}
+\NormalTok{  url }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(base\_url, i)}
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Scraping:"}\NormalTok{, url)) }\CommentTok{\# Print progress so you know it\textquotesingle{}s working}
+  
+  \CommentTok{\# STANDARD SCRAPING (Replaces polite::scrape)}
+  \CommentTok{\# We use tryCatch to skip a page if an error occurs, preventing a total crash}
+  \FunctionTok{tryCatch}\NormalTok{(\{}
+\NormalTok{    page }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(url)}
+    
+    \CommentTok{\# Extract containers}
+\NormalTok{    papers\_html }\OtherTok{\textless{}{-}}\NormalTok{ page }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_nodes}\NormalTok{(}\StringTok{"li.arxiv{-}result"}\NormalTok{)}
+    
+    \CommentTok{\# Extract Data Elements}
+\NormalTok{    titles }\OtherTok{\textless{}{-}}\NormalTok{ papers\_html }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{html\_node}\NormalTok{(}\StringTok{"p.title.is{-}5.mathjax"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{html\_text}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{TRUE}\NormalTok{)}
+    
+\NormalTok{    authors }\OtherTok{\textless{}{-}}\NormalTok{ papers\_html }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{html\_node}\NormalTok{(}\StringTok{"p.authors"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{html\_text}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{str\_remove}\NormalTok{(}\StringTok{"Authors:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+    
+\NormalTok{    abstracts }\OtherTok{\textless{}{-}}\NormalTok{ papers\_html }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{html\_node}\NormalTok{(}\StringTok{"span.abstract{-}full"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{html\_text}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{str\_remove}\NormalTok{(}\StringTok{"△ Less"}\NormalTok{)}
+    
+\NormalTok{    meta\_raw }\OtherTok{\textless{}{-}}\NormalTok{ papers\_html }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{html\_node}\NormalTok{(}\StringTok{"p.is{-}size{-}7"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{html\_text}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{TRUE}\NormalTok{)}
+    
+    \CommentTok{\# Store in temporary dataframe}
+\NormalTok{    temp\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+      \AttributeTok{title =}\NormalTok{ titles,}
+      \AttributeTok{author =}\NormalTok{ authors,}
+      \AttributeTok{abstract =}\NormalTok{ abstracts,}
+      \AttributeTok{meta\_raw =}\NormalTok{ meta\_raw,}
+      \AttributeTok{stringsAsFactors =} \ConstantTok{FALSE}
+\NormalTok{    )}
+    
+\NormalTok{    all\_papers[[}\FunctionTok{length}\NormalTok{(all\_papers) }\SpecialCharTok{+} \DecValTok{1}\NormalTok{]] }\OtherTok{\textless{}{-}}\NormalTok{ temp\_df}
+    
+\NormalTok{  \}, }\AttributeTok{error =} \ControlFlowTok{function}\NormalTok{(e) \{}
+    \FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Error on page starting at"}\NormalTok{, i))}
+\NormalTok{  \})}
+  
+  \CommentTok{\# IMPORTANT: Wait 3 seconds between pages to avoid being banned by arXiv}
+  \FunctionTok{Sys.sleep}\NormalTok{(}\DecValTok{3}\NormalTok{) }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Scraping: https://arxiv.org/search/?query=Nuclear+Theory&searchtype=all&source=header&start=0"
+## [1] "Scraping: https://arxiv.org/search/?query=Nuclear+Theory&searchtype=all&source=header&start=50"
+## [1] "Scraping: https://arxiv.org/search/?query=Nuclear+Theory&searchtype=all&source=header&start=100"
+## [1] "Scraping: https://arxiv.org/search/?query=Nuclear+Theory&searchtype=all&source=header&start=150"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Combine all lists into one dataframe}
+\NormalTok{df\_papers }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(all\_papers)}
+
+\CommentTok{\# Check count}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Total papers extracted:"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(df\_papers)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Total papers extracted: 200"
+\end{verbatim}
+
+\subsubsection{3. Cleaning the data}\label{cleaning-the-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_clean }\OtherTok{\textless{}{-}}\NormalTok{ df\_papers }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \CommentTok{\# 1. Extract Submission Date}
+    \AttributeTok{submission\_date\_text =} \FunctionTok{str\_extract}\NormalTok{(meta\_raw, }\StringTok{"Submitted.*?(=?;)"}\NormalTok{),}
+    \AttributeTok{submission\_date\_text =} \FunctionTok{str\_remove\_all}\NormalTok{(submission\_date\_text, }\StringTok{"Submitted |;"}\NormalTok{),}
+    \AttributeTok{submission\_date =} \FunctionTok{dmy}\NormalTok{(submission\_date\_text),}
+    
+    \CommentTok{\# 2. Extract DOI}
+    \AttributeTok{doi =} \FunctionTok{str\_extract}\NormalTok{(meta\_raw, }\StringTok{"doi:.*"}\NormalTok{),}
+    \AttributeTok{doi =} \FunctionTok{str\_remove}\NormalTok{(doi, }\StringTok{"doi:"}\NormalTok{),}
+    
+    \CommentTok{\# 3. Extract Announced Date (Backup if submission is missing)}
+    \AttributeTok{announced\_date\_text =} \FunctionTok{str\_extract}\NormalTok{(meta\_raw, }\StringTok{"originally announced [A{-}Za{-}z]+ [0{-}9]\{4\}"}\NormalTok{),}
+    \AttributeTok{announced\_date\_text =} \FunctionTok{str\_remove}\NormalTok{(announced\_date\_text, }\StringTok{"originally announced "}\NormalTok{),}
+    \AttributeTok{originally\_announced =} \FunctionTok{my}\NormalTok{(announced\_date\_text)}
+\NormalTok{  )}
+
+\CommentTok{\# Remove rows where date might have failed (optional)}
+\NormalTok{df\_clean }\OtherTok{\textless{}{-}}\NormalTok{ df\_clean }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(submission\_date))}
+
+\FunctionTok{head}\NormalTok{(df\_clean }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(title, submission\_date, doi))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                                                                    title
+## 1                                          Short-range production of three bottom mesons
+## 2               New Physics Searches via Beam Normal Spin Asymmetry in Bhabha Scattering
+## 3 Pion photoproduction of nucleon excited states with Hamiltonian effective field theory
+## 4             On the possibility of superradiant neutrino emission by atomic condensates
+## 5  Relativistic recoil as a key to the fine-structure puzzle in muonic $^{90}\\text{Zr}$
+## 6                   Study of $0^+$ and $8^-$ states in even-even $^{250-260}$No isotopes
+##   submission_date  doi
+## 1      2025-11-27 <NA>
+## 2      2025-11-27 <NA>
+## 3      2025-11-27 <NA>
+## 4      2025-11-27 <NA>
+## 5      2025-11-27 <NA>
+## 6      2025-11-27 <NA>
+\end{verbatim}
+
+\subsubsection{Arangging The dates}\label{arangging-the-dates}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_sorted }\OtherTok{\textless{}{-}}\NormalTok{ df\_clean }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(submission\_date)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{5. Turning into a plot time
+series}\label{turning-into-a-plot-time-series}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Count papers per month}
+\NormalTok{papers\_per\_month }\OtherTok{\textless{}{-}}\NormalTok{ df\_sorted }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{month\_year =} \FunctionTok{floor\_date}\NormalTok{(submission\_date, }\StringTok{"month"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(month\_year) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{())}
+
+\CommentTok{\# Plot}
+\FunctionTok{ggplot}\NormalTok{(papers\_per\_month, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ month\_year, }\AttributeTok{y =}\NormalTok{ count)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"darkblue"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Time Series: Nuclear Theory Papers (arXiv)"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Frequency of papers submitted per month"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Date"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Number of Papers"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Group-Activity-Moquete,-Adrian,-Castilano,-Simpron--1-_files/figure-latex/unnamed-chunk-6-1.pdf}}
+
+\end{document}
