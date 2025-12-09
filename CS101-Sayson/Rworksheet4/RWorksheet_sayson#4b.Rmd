@@ -65,31 +65,123 @@ cat("\n")
 
 ```{r}
 #4.
-fig1 <- matrix(c(0,1,2,3,4,
-1,0,1,2,3,
-2,1,0,1,2,
-3,2,1,0,1,
-4,3,2,1,0), nrow=5, byrow=TRUE)
-write.csv(fig1, "figure1.csv", row.names=FALSE)
-figure1 <- read.csv("figure1.csv", header=FALSE)
-print(figure1)
-
-shoe_size <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5,
-13.0, 11.5, 8.5, 5.0, 10.0, 6.5, 7.5, 8.5, 10.5, 10.5, 11.0, 9.0, 13.0)
-height <- c(66.0, 68.0, 64.5, 65.0, 70.0, 64.0, 70.0, 71.0, 72.0, 64.0, 74.5, 67.0, 71.0, 71.0,
-77.0, 72.0, 59.0, 62.0, 72.0, 66.0, 64.0, 67.0, 73.0, 72.0, 69.0, 69.0, 70.0)
-gender <- c("F", "F", "F", "F", "M", "F", "F", "F", "M", "F", "M", "F", "M", "M",
-"M", "M", "F", "F", "M", "F", "F", "M", "M", "M", "M", "M", "M")
-
-df <- data.frame(Shoe_size = shoe_size, Height = height, Gender = gender)
-write.csv(df, "figure3.csv", row.names = FALSE)
-
-gender_count <- table(df$Gender)
-barplot(gender_count, col=c("pink","blue"), main="Number of Males and Females in Household Data", xlab="Gender", ylab="Number of Individuals")
-legend("topright", legend=names(gender_count), fill=c("pink","blue"))
+shoess <- read.csv("shoe_table.csv")
+print(shoess)
 
 ```
 ```{r}
+#A
+head(shoess)
+```
+```{r}
+#b
+female <- subset(shoess, gender == "F")
+male <- subset(shoess, gender == "M")
+nrow(male)
+nrow(female)
+```
+```{r}
+#c
+gender_ct <- table(shoess$Gender)
 
+barplot(gender_ct,
+        main = "Number of Males and Females",
+        xlab = "Gender",
+        ylab = "Count",
+        col = c("cyan", "pink"),
+        legend.text = TRUE)
+```
+```{r}
+#5
+expenses <- c(60, 10, 5, 25)
+categories <- c("Food", "Electricity", "Savings", "Miscellaneous")
+percent <- round(expenses / sum(expenses) * 100)
+labels <- paste(categories, percent, "%")
+pie(expenses,
+    labels = labels,
+    col = c("red", "yellow", "green", "cyan"),
+    main = "Monthly Income Distribution of Dela Cruz Family")
+```
+```{r}
+#a
+str(iris)
+#There is 150 rows and 5 columns. The dataset has 3 species of the "Iris" flowers which are then each classified with 4 measurements.
+```
+```{r}
+#b
+means_iris <- colMeans(iris[, 1:4])
+
+means_iris
+```
+```{r}
+#c
+species_count <- table(iris$Species)
+
+pie(species_count,
+    main = "Distribution of Iris Species",
+    col = c("yellow", "red", "blue"),
+    labels = paste(names(species_count), "(", species_count, ")")
+)
+legend("bottomleft",
+       legend = names(species_count),
+       fill = c("yellow", "red", "blue"),
+       title = "Species")
+```
+```{r}
+#d
+setosa <- subset(iris, Species == "setosa")
+versicolor <- subset(iris, Species == "versicolor")
+virginica <- subset(iris, Species == "virginica")
+
+tail(setosa)
+tail(versicolor)
+tail(virginica)
+```
+```{r}
+#e
+iris$Species <- as.factor(iris$Species)
+
+colors <- c("setosa" = "orange",
+            "versicolor" = "purple",
+            "virginica" = "green")
+
+symbols <- c("setosa" = 16,    
+             "versicolor" = 17,   
+             "virginica" = 15)   
+
+plot(iris$Sepal.Length, iris$Sepal.Width,
+     col = colors[iris$Species],
+     pch = symbols[iris$Species],
+     main = "Iris Dataset",
+     sub = "Sepal Width and Length",
+     xlab = "Sepal Length",
+     ylab = "Sepal Width")
+
+legend("topright",
+       legend = levels(iris$Species),
+       col = colors,
+       pch = symbols,
+       title = "Species")
+```
+```{r}
+#f
+#The scatterplot shows that the virginica iris has the overall longest sepal and the setosa iris has the widest sepal with versicolor between them. 
+```
+```{r}
+#7
+library(readxl)
+
+data <- read_excel("alexa-file.xlsx")
+
+print(data)
 ```
 
+```{r}
+#a
+data$variation <- gsub("\\s+", " ", trimws(data$variation))
+
+data$variation <- gsub("Black ", "Black", data$variation) 
+data$variation <- gsub("White ", "White", data$variation) 
+
+knitr::include_graphics("Purple-iris-flower-plant.webp")
+```
