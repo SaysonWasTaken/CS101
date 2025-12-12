@@ -1,0 +1,251 @@
+---
+title: "RWorksheet_sayson#4c"
+author: "Adrian T. Sayson"
+date: "2025-12-12"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(RColorBrewer)   
+library(readxl)
+library(dplyr)
+```
+
+
+
+```{r}
+#1
+
+data(mpg)
+
+write.csv(mpg, "mpg.csv", row.names = FALSE)
+```
+
+
+```{r}
+#a
+mpg <- read.csv("mpg.csv", stringsAsFactors = FALSE)
+
+mpg
+```
+
+
+```{r}
+#b
+str(mpg)
+
+#All characters and factors are categorical.
+```
+
+```{r}
+#c
+str(mpg)
+
+#All numeric are continous.
+```
+
+```{r}
+#2
+mpg %>%
+  group_by(manufacturer) %>%
+  summarise(models = n_distinct(model))
+
+```
+
+```{r}
+#a
+unique_models <- mpg %>%
+  group_by(manufacturer) %>%
+  summarise(unique_models = n_distinct(model)) %>%
+  arrange(desc(unique_models))
+
+unique_models
+```
+```{r}
+#b
+
+ggplot(unique_models, aes(x = reorder(manufacturer, -unique_models), y = unique_models)) +
+  geom_bar(stat = "identity", fill = "cyan") +
+  xlab("Manufacturer") + ylab("Number of Unique Models") +
+  ggtitle("Number of Unique Models by Manufacturer") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+#c
+
+ggplot(mpg, aes(x = reorder(manufacturer, model, function(x) length(unique(x))), y = model)) +
+  geom_point() +
+  xlab("Manufacturer") + 
+  ylab("Model") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+```{r}
+#b
+
+#No, barplot is easier to understand.
+```
+
+```{r}
+#3
+
+top_20 <- head(mpg, 20)
+
+ggplot(top_20, aes(x = model, y = year)) +
+  geom_point() +
+  xlab("Model") + ylab("Year") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+#4
+
+mpg %>%
+  group_by(model) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count))
+```
+```{r}
+#a
+
+top_20_models <- mpg %>%
+  group_by(model) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count)) %>%
+  head(20)
+
+ggplot(top_20_models, aes(x = reorder(model, -count), y = count, fill = model)) +
+  geom_bar(stat = "identity") +
+  xlab("Model") + ylab("Number of Cars") +
+  ggtitle("Top 20 Car Models by Number of Cars") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none") +
+  scale_fill_manual(values = colorRampPalette(brewer.pal(12, "Set3"))(20))     
+```
+```{r}
+#b
+
+top_20_models <- mpg %>%
+  group_by(model) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count)) %>%
+  head(20)
+
+ggplot(top_20_models, aes(x = model, y = count, fill = model)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  xlab("Number of Cars") + ylab("Model") +
+  ggtitle("Top 20 Car Models by Number of Cars") +
+  theme(axis.text.y = element_text(size = 9), legend.position = "none")
+```
+```{r}
+#5
+
+ggplot(mpg, aes(x = cyl, y = displ, color = displ)) +
+  geom_point() +
+  ggtitle("Relationship between No. of Cylinders and Engine Displacement") +
+  xlab("Number of Cylinders") + ylab("Engine Displacement") +
+  scale_color_gradient(low = "green", high = "red")
+```
+```{r}
+#a
+
+#In general, engines with more cylinders have larger displacements.
+```
+
+```{r}
+#6
+
+ggplot(mpg, aes(x = displ, y = hwy, color = displ)) +
+  geom_point() +
+  ggtitle("Relationship between Engine Displacement and Highway MPG") +
+  xlab("Engine Displacement (L)") + ylab("Highway MPG") +
+  scale_color_gradient(low = "green", high = "red")
+```
+```{r}
+#6
+
+traffic_data <- data.frame(
+  Date = as.Date('2025-11-01') + 0:9,
+  Location = rep(c("Intersection A", "Intersection B"), each = 5),
+  Vehicles = c(120, 150, 130, 160, 140, 200, 210, 190, 205, 220),
+  Average_Speed = c(35.5, 34.2, 36.0, 33.8, 34.5, 32.0, 31.5, 33.0, 30.8, 29.5)
+)
+write.csv(traffic_data, "traffic.csv", row.names = FALSE)
+traffic <- read.csv("traffic.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+#a
+
+str(traffic)
+```
+
+```{r}
+#b
+
+intersection_a <- traffic[traffic$Location == "Intersection A", ]
+intersection_b <- traffic[traffic$Location == "Intersection B", ]
+
+print(intersection_a)
+print(intersection_b)
+```
+
+```{r}
+#c
+
+ggplot(traffic, aes(x = Date, y = Vehicles, color = Location, group = Location)) +
+  geom_line() +
+  geom_point() +
+  xlab("Date") + ylab("Number of Vehicles") +
+  ggtitle("Traffic Over Time by Junction") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+#7
+library(readxl)
+alexa <- read_excel("alexa-file.xlsx")
+
+```
+
+```{r}
+#a
+
+str(alexa)
+```
+
+```{r}
+#b
+load("variations.RData")
+
+variations %>%
+  group_by(variation) %>%
+  summarise(total = sum(n))
+```
+
+```{r}
+#c
+
+ggplot(variations, aes(x = variation, y = n, fill = variation)) +
+  geom_bar(stat = "identity") +
+  xlab("Variation") + ylab("Count") +
+  ggtitle("Count of Each Variation") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")   
+```
+```{r}
+#d
+
+#Data = N/A
+```
+
+```{r}
+#e
+
+#Ratings = N/A
+```
