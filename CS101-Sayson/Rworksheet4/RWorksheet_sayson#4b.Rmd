@@ -182,7 +182,7 @@ alexa$variation <- gsub("Black Dot", "Black", alexa$variation)
 alexa$variation <- gsub("White Dot", "White", alexa$variation)
 alexa$variation <- gsub("White Plus", "White Plus", alexa$variation) 
 
-knitr::include_graphics("Purple-iris-flower-plant.png")
+knitr::include_graphics("Iris-PNG-Pic.png")
 ```
 ```{r}
 #b
